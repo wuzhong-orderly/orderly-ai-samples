@@ -1,0 +1,95 @@
+:root {
+  --oui-font-family: 'Manrope', sans-serif;
+
+  /* colors - Autumn Theme */
+  /* Primary: Burnt Orange / Gold */
+  --oui-color-primary: 222 122 34;
+  --oui-color-primary-light: 242 162 94;
+  --oui-color-primary-darken: 182 82 0;
+  --oui-color-primary-contrast: 255 255 255;
+
+  --oui-color-link: 222 122 34;
+  --oui-color-link-light: 242 162 94;
+
+  --oui-color-secondary: 255 255 255;
+  --oui-color-tertiary: 218 218 218;
+  --oui-color-quaternary: 218 218 218;
+
+  --oui-color-danger: 205 92 92; /* IndianRed */
+  --oui-color-danger-light: 240 128 128;
+  --oui-color-danger-darken: 139 0 0;
+  --oui-color-danger-contrast: 255 255 255;
+
+  --oui-color-success: 85 107 47; /* DarkOliveGreen */
+  --oui-color-success-light: 107 142 35;
+  --oui-color-success-darken: 0 100 0;
+  --oui-color-success-contrast: 255 255 255;
+
+  --oui-color-warning: 218 165 32; /* GoldenRod */
+  --oui-color-warning-light: 255 215 0;
+  --oui-color-warning-darken: 184 134 11;
+  --oui-color-warning-contrast: 255 255 255;
+
+  --oui-color-fill: 43 30 20; /* Dark warm brown */
+  --oui-color-fill-active: 66 48 35;
+
+  --oui-color-base-1: 93 72 58;
+  --oui-color-base-2: 81 62 50;
+  --oui-color-base-3: 68 52 42;
+  --oui-color-base-4: 57 44 36;
+  --oui-color-base-5: 51 39 32;
+  --oui-color-base-6: 43 30 20;
+  --oui-color-base-7: 36 25 17;
+  --oui-color-base-8: 29 20 14;
+  --oui-color-base-9: 22 15 10;
+  --oui-color-base-10: 14 10 7;
+
+  --oui-color-base-foreground: 255 255 255;
+  --oui-color-line: 139 69 19; /* SaddleBrown */
+
+  --oui-color-trading-loss: 205 92 92;
+  --oui-color-trading-loss-contrast: 255 255 255;
+  --oui-color-trading-profit: 107 142 35;
+  --oui-color-trading-profit-contrast: 255 255 255;
+
+  /* gradients */
+  --oui-gradient-primary-start: 139 69 19;
+  --oui-gradient-primary-end: 222 122 34;
+
+  --oui-gradient-secondary-start: 81 42 121;
+  --oui-gradient-secondary-end: 176 132 233;
+
+  --oui-gradient-success-start: 47 79 79;
+  --oui-gradient-success-end: 85 107 47;
+
+  --oui-gradient-danger-start: 139 0 0;
+  --oui-gradient-danger-end: 205 92 92;
+
+  --oui-gradient-brand-start: 245 222 179; /* Wheat */
+  --oui-gradient-brand-end: 222 122 34;
+  --oui-gradient-brand-stop-start: 6.62%;
+  --oui-gradient-brand-stop-end: 86.5%;
+  --oui-gradient-brand-angle: 17.44deg;
+
+  --oui-gradient-warning-start: 184 134 11;
+  --oui-gradient-warning-end: 218 165 32;
+
+  --oui-gradient-neutral-start: 43 30 20;
+  --oui-gradient-neutral-end: 66 48 35;
+
+  /* rounded */
+  --oui-rounded-sm: 2px;
+  --oui-rounded: 4px;
+  --oui-rounded-md: 6px;
+  --oui-rounded-lg: 8px;
+  --oui-rounded-xl: 12px;
+  --oui-rounded-2xl: 16px;
+  --oui-rounded-full: 9999px;
+
+  /* spacing */
+  --oui-spacing-xs: 20rem;
+  --oui-spacing-sm: 22.5rem;
+  --oui-spacing-md: 26.25rem;
+  --oui-spacing-lg: 30rem;
+  --oui-spacing-xl: 33.75rem;
+}
