@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orderly API Market Data</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Orderly Market Data</h1>
+        <p>Real-time 24h statistics from Orderly Network (EVM)</p>
+        <div class="status-bar">
+          <span id="statusIndicator" class="status-dot"></span>
+          <span id="statusText">Connecting...</span>
+        </div>
+      </header>
+
+      <div class="controls">
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="Search Symbol (e.g. BTC)" 
+        />
+      </div>
+
+      <div class="table-container">
+        <table id="marketTable">
+          <thead>
+            <tr>
+              <th data-sort="symbol">Symbol <span class="sort-icon"></span></th>
+              <th data-sort="price" class="text-right">Price <span class="sort-icon"></span></th>
+              <th data-sort="change" class="text-right">24h Change <span class="sort-icon"></span></th>
+              <th data-sort="volume" class="text-right">Volume (USDC) <span class="sort-icon"></span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rows will be injected by JS -->
+          </tbody>
+        </table>
+        <div id="loader" class="loader">Loading market data...</div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
