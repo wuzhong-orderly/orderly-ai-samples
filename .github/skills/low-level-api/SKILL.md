@@ -38,9 +38,58 @@ Private endpoints require the following headers.
 | Header | Description |
 | :--- | :--- |
 | `orderly-account-id` | Your unique account ID (keccak256 hash of address + broker) |
-| `orderly-key` | Your API public key (ed25519, without `ed25519:` prefix) |
+| `orderly-key` | Your API public key (ed25519, Base58-encoded with `ed25519:` prefix, e.g., `ed25519:5FdHdjGy1tZRWgUhKUYQUAtatuw4N2kJNhkeuKF5VvWn`) |
 | `orderly-timestamp` | Current timestamp in milliseconds |
 | `orderly-signature` | Base64URL-encoded ed25519 signature |
+
+### Generating `orderly-key` from Secret Key
+The public key must be derived from your secret key and encoded in **Base58** format with the `ed25519:` prefix:
+
+```typescript
+import * as ed from "@noble/ed25519";
+
+// Base58 alphabet (Bitcoin-style)
+const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
+function bytesToBase58(bytes: Uint8Array): string {
+  // Count leading zeros
+  let zeros = 0;
+  for (let i = 0; i < bytes.length && bytes[i] === 0; i++) {
+    zeros++;
+  }
+  
+  // Convert to base58
+  const digits: number[] = [0];
+  for (let i = 0; i < bytes.length; i++) {
+    let carry = bytes[i];
+    for (let j = 0; j < digits.length; j++) {
+      carry += digits[j] << 8;
+      digits[j] = carry % 58;
+      carry = (carry / 58) | 0;
+    }
+    while (carry > 0) {
+      digits.push(carry % 58);
+      carry = (carry / 58) | 0;
+    }
+  }
+  
+  // Build result string
+  let result = '';
+  for (let i = 0; i < zeros; i++) {
+    result += BASE58_ALPHABET[0];
+  }
+  for (let i = digits.length - 1; i >= 0; i--) {
+    result += BASE58_ALPHABET[digits[i]];
+  }
+  
+  return result;
+}
+
+async function getOrderlyKey(secretKey: Uint8Array): Promise<string> {
+  const publicKey = await ed.getPublicKeyAsync(secretKey);
+  return 'ed25519:' + bytesToBase58(publicKey);
+}
+```
 
 ### Generating `orderly-signature`
 1. **Construct the Message:**
@@ -80,6 +129,86 @@ async function signRequest(
     .replace(/\//g, "_")
     .replace(/=+$/, "");
 }
+```
+
+### Complete Authentication Example (TypeScript)
+```typescript
+import * as ed from "@noble/ed25519";
+
+// Base58 encoding (required for orderly-key)
+const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
+function bytesToBase58(bytes: Uint8Array): string {
+  let zeros = 0;
+  for (let i = 0; i < bytes.length && bytes[i] === 0; i++) zeros++;
+  
+  const digits: number[] = [0];
+  for (let i = 0; i < bytes.length; i++) {
+    let carry = bytes[i];
+    for (let j = 0; j < digits.length; j++) {
+      carry += digits[j] << 8;
+      digits[j] = carry % 58;
+      carry = (carry / 58) | 0;
+    }
+    while (carry > 0) {
+      digits.push(carry % 58);
+      carry = (carry / 58) | 0;
+    }
+  }
+  
+  let result = BASE58_ALPHABET[0].repeat(zeros);
+  for (let i = digits.length - 1; i >= 0; i--) {
+    result += BASE58_ALPHABET[digits[i]];
+  }
+  return result;
+}
+
+async function makeAuthenticatedRequest(
+  baseUrl: string,
+  path: string,
+  accountId: string,
+  secretKey: Uint8Array,
+  method: string = 'GET',
+  body?: object
+): Promise<any> {
+  const timestamp = Date.now();
+  
+  // Generate signature
+  const bodyString = body ? JSON.stringify(body) : "";
+  const message = `${timestamp}${method.toUpperCase()}${path}${bodyString}`;
+  const signature = await ed.signAsync(new TextEncoder().encode(message), secretKey);
+  const signatureBase64Url = btoa(String.fromCharCode(...signature))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+  
+  // Derive public key (orderly-key) - must be Base58 with ed25519: prefix
+  const publicKey = await ed.getPublicKeyAsync(secretKey);
+  const orderlyKey = 'ed25519:' + bytesToBase58(publicKey);
+  
+  const response = await fetch(`${baseUrl}${path}`, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      'orderly-account-id': accountId,
+      'orderly-key': orderlyKey,
+      'orderly-timestamp': timestamp.toString(),
+      'orderly-signature': signatureBase64Url
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  
+  return response.json();
+}
+
+// Example usage:
+// const secretKey = base58ToBytes("DmLpCDU8PMTSXfhW5UxzsYjNsg8r6HxKfLqr4scqcHxb");
+// const result = await makeAuthenticatedRequest(
+//   "https://testnet-api-evm.orderly.org",
+//   "/v1/client/holding",
+//   "0x...",
+//   secretKey
+// );
 ```
 
 ## Response Format

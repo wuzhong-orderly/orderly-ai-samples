@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orderly Account Info</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Orderly Account Info</h1>
+        <p>View your assets and open positions on Orderly Network</p>
+      </header>
+
+      <div class="credentials-form">
+        <h2>Account Credentials</h2>
+        <div class="form-row">
+          <label for="accountId">Account ID</label>
+          <input 
+            type="text" 
+            id="accountId" 
+            placeholder="0x..." 
+          />
+        </div>
+        <div class="form-row">
+          <label for="secretKey">Secret Key</label>
+          <input 
+            type="password" 
+            id="secretKey" 
+            placeholder="ed25519:... (your ed25519 secret key)" 
+          />
+        </div>
+        <div class="form-row">
+          <label for="network">Network</label>
+          <select id="network">
+            <option value="testnet">Testnet</option>
+            <option value="mainnet">Mainnet</option>
+          </select>
+        </div>
+        <button id="fetchBtn" class="btn-primary">Fetch Account Info</button>
+      </div>
+
+      <div id="statusBar" class="status-bar hidden">
+        <span id="statusIndicator" class="status-dot"></span>
+        <span id="statusText">Connecting...</span>
+      </div>
+
+      <div id="dataSection" class="data-section hidden">
+        <!-- Account Summary -->
+        <div class="section">
+          <h2>Account Summary</h2>
+          <div id="accountSummary" class="summary-grid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Assets Table -->
+        <div class="section">
+          <h2>Assets (Holdings)</h2>
+          <div class="table-container">
+            <table id="assetsTable">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th class="text-right">Available</th>
+                  <th class="text-right">Frozen</th>
+                  <th class="text-right">Pending Withdrawal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Rows injected by JS -->
+              </tbody>
+            </table>
+            <div id="assetsLoader" class="loader">Loading assets...</div>
+            <div id="assetsEmpty" class="empty-state hidden">No assets found</div>
+          </div>
+        </div>
+
+        <!-- Positions Table -->
+        <div class="section">
+          <h2>Open Positions</h2>
+          <div class="table-container">
+            <table id="positionsTable">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th class="text-right">Size</th>
+                  <th class="text-right">Entry Price</th>
+                  <th class="text-right">Mark Price</th>
+                  <th class="text-right">Unrealized PnL</th>
+                  <th class="text-right">Liq. Price</th>
+                  <th class="text-right">Leverage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Rows injected by JS -->
+              </tbody>
+            </table>
+            <div id="positionsLoader" class="loader">Loading positions...</div>
+            <div id="positionsEmpty" class="empty-state hidden">No open positions</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="errorSection" class="error-section hidden">
+        <p id="errorMessage"></p>
+      </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
