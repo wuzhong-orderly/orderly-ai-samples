@@ -1,0 +1,87 @@
+@import "@orderly.network/ui/dist/styles.css";
+
+:root {
+  --oui-color-primary: 187 52% 76%;
+  --oui-color-primary-light: 187 28% 59%;
+  --oui-color-primary-darken: 187 52% 57%;
+  --oui-color-primary-contrast: 180 7% 8%;
+  --oui-color-link: 187 52% 76%;
+  --oui-color-link-light: 187 52% 85%;
+
+  --oui-color-success: 168 83% 59%;
+  --oui-color-success-light: 168 100% 68%;
+  --oui-color-success-darken: 168 100% 41%;
+  --oui-color-success-contrast: 180 7% 8%;
+
+  --oui-color-warning: 24 100% 65%;
+  --oui-color-warning-light: 24 95% 70%;
+  --oui-color-warning-darken: 24 100% 51%;
+  --oui-color-warning-contrast: 180 7% 8%;
+
+  --oui-color-danger: 0 91% 71%;
+  --oui-color-danger-light: 0 100% 85%;
+  --oui-color-danger-darken: 0 80% 58%;
+  --oui-color-danger-contrast: 180 7% 8%;
+
+  --oui-color-fill: 180 7% 8%;
+  --oui-color-fill-active: 180 7% 11%;
+
+  --oui-color-base-1: 180 2% 78%;
+  --oui-color-base-2: 210 2% 69%;
+  --oui-color-base-3: 225 2% 60%;
+  --oui-color-base-4: 200 3% 51%;
+  --oui-color-base-5: 204 2% 43%;
+  --oui-color-base-6: 200 3% 34%;
+  --oui-color-base-7: 210 3% 26%;
+  --oui-color-base-8: 200 4% 17%;
+  --oui-color-base-9: 180 7% 11%;
+  --oui-color-base-10: 180 7% 8%;
+
+  --oui-color-base-foreground: 0 0% 100%;
+
+  --oui-color-trading-loss: 0 91% 71%;
+  --oui-color-trading-loss-contrast: 0 0% 100%;
+  --oui-color-trading-profit: 168 83% 59%;
+  --oui-color-trading-profit-contrast: 180 7% 8%;
+
+  --oui-color-line: 200 4% 17%;
+
+  --oui-gradient-brand-start: 181 75% 47%;
+  --oui-gradient-brand-end: 187 49% 71%;
+
+  --oui-gradient-success-start: 168 83% 59%;
+  --oui-gradient-success-end: 155 60% 61%;
+
+  --oui-gradient-warning-start: 24 100% 65%;
+  --oui-gradient-warning-end: 34 88% 68%;
+
+  --oui-gradient-danger-start: 0 91% 71%;
+  --oui-gradient-danger-end: 12 91% 73%;
+
+  --oui-gradient-neutral-start: 210 2% 69%;
+  --oui-gradient-neutral-end: 200 4% 17%;
+
+  --oui-font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  background-color: hsl(180 7% 8%);
+  color: hsl(0 0% 100%);
+  font-family: var(--oui-font-family);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

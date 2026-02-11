@@ -9,9 +9,16 @@ It showcases how custom agent skills—defined in the `.github/skills` directory
 - **`.github/skills/`**: Contains the skill definitions that teach the AI agent how to interact with Orderly.
     - `low-level-api`: Instructions for working with Orderly's public and private APIs.
     - `create-dex-from-template`: Automation for scaffolding a complete DEX using the Orderly One template.
+    - `orderly-sdk-*`: Skills for using Orderly Network SDK components directly.
 - **`market-data-sample/`**: A sample project displaying public market data (prices, volumes, 24h changes).
 - **`account-info-sample/`**: A sample project for viewing authenticated account data (assets, positions, PnL).
-- **`dex-sample/`**: A fully scaffolded DEX generated using the "Create DEX" skill.
+- **`dex-sample/`**: A fully scaffolded DEX generated using the "Create DEX" skill (template-based).
+- **`sdk-dex-sample/`**: A DEX built using SDK components directly (not template-based). Features:
+  - Full trading interface with `@orderly.network/trading`
+  - Wallet connection (EVM & Solana)
+  - TradingView charting support
+  - Symbol switching with URL routing
+  - Dark theme with customizable CSS variables
 
 ## 🤖 AI Agent Configuration
 
@@ -40,3 +47,8 @@ You can reproduce the results in this repository by using the following prompts 
 
 *Follow-up Prompt:*
 > "Make the theme an autumn theme with a logo of a beautiful tree."
+
+### Scenario 4: SDK-Based DEX Development
+*Demonstrates building a DEX using SDK components directly without templates.*
+
+> **Prompt:** "Build an Orderly-based DEX using the SDK, not based on the template."
