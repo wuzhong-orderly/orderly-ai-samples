@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orderly Order Book Depth</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Orderly Order Book Depth</h1>
+        <p>Live order book from Orderly Network (EVM) via WebSocket</p>
+        <div class="status-bar">
+          <span id="statusIndicator" class="status-dot"></span>
+          <span id="statusText">Enter account ID to connect</span>
+        </div>
+      </header>
+
+      <div class="connect-bar">
+        <input
+          type="text"
+          id="accountIdInput"
+          placeholder="Enter your Orderly account ID (0x…)"
+        />
+        <button id="connectBtn">Connect</button>
+      </div>
+
+      <div class="controls">
+        <select id="symbolSelect">
+          <option value="">Loading symbols...</option>
+        </select>
+        <div class="depth-controls">
+          <label>Levels:</label>
+          <select id="levelSelect">
+            <option value="10">10</option>
+            <option value="15" selected>15</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Spread indicator -->
+      <div class="spread-bar">
+        <span id="spreadLabel">Spread: —</span>
+        <span id="midPrice" class="mid-price">Mid: —</span>
+        <span id="lastUpdate" class="last-update">—</span>
+      </div>
+
+      <!-- Order Book Table -->
+      <div class="book-wrapper">
+        <!-- Asks (sells) -->
+        <div class="book-side">
+          <div class="book-header asks-header">
+            <span>Price (USDC)</span>
+            <span>Size</span>
+            <span>Total</span>
+          </div>
+          <div id="asksBody" class="book-rows asks-rows">
+            <div class="loader">Waiting for data...</div>
+          </div>
+        </div>
+
+        <!-- Bids (buys) -->
+        <div class="book-side">
+          <div class="book-header bids-header">
+            <span>Price (USDC)</span>
+            <span>Size</span>
+            <span>Total</span>
+          </div>
+          <div id="bidsBody" class="book-rows bids-rows">
+            <div class="loader">Waiting for data...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Depth Visualization -->
+      <div class="depth-chart-container">
+        <h3>Depth Chart</h3>
+        <canvas id="depthCanvas" width="900" height="280"></canvas>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

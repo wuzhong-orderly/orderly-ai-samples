@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/constant.ts","./src/index.tsx","./src/routes.tsx","./src/vite-env.d.ts","./src/components/layout/index.tsx","./src/components/orderlyprovider/index.tsx","./src/hooks/index.ts","./src/hooks/usenav.ts","./src/hooks/useorderlyconfig.ts","./src/pages/markets/page.tsx","./src/pages/perp/page.tsx","./src/pages/portfolio/page.tsx"],"version":"5.8.3"}

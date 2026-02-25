@@ -1478,7 +1478,7 @@ const { isMobile } = useScreen();
 
 ## Version Compatibility
 
-- **UI Package**: v2.8.x
+- **UI Package**: v2.9.x
 - **React**: ^18.0.0
 - **Radix UI**: Various ^1.x versions
 - **Tailwind CSS**: ^3.4.x

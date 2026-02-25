@@ -12,13 +12,22 @@ Use this skill to add Orderly SDK packages to your project. The SDK is modularâ€
 
 ## Quick Start (Full DEX)
 
+> **IMPORTANT**: A functional DEX requires BOTH the Orderly packages AND the wallet connector dependencies. The `@orderly.network/wallet-connector` package needs `@web3-onboard/*` packages for EVM wallets and `@solana/wallet-adapter-*` packages for Solana wallets.
+
 ```bash
+# Orderly SDK packages
 npm install @orderly.network/react-app \
             @orderly.network/trading \
             @orderly.network/portfolio \
             @orderly.network/markets \
             @orderly.network/wallet-connector \
             @orderly.network/i18n
+
+# REQUIRED: EVM wallet support (MetaMask, WalletConnect, etc.)
+npm install @web3-onboard/injected-wallets @web3-onboard/walletconnect
+
+# REQUIRED: Solana wallet support (Phantom, Solflare, etc.)
+npm install @solana/wallet-adapter-base @solana/wallet-adapter-wallets
 ```
 
 ---
@@ -71,14 +80,21 @@ Choose **one** wallet connection strategy.
 | `@orderly.network/wallet-connector` | Standard connector (Web3-Onboard + Solana adapters) | `WalletConnectorProvider` |
 | `@orderly.network/wallet-connector-privy` | Privy connector (social login, embedded wallets) | `PrivyConnectorProvider` |
 
-**Option A: Standard Wallet Connector**
+**Option A: Standard Wallet Connector (Recommended)**
 
 Supports EVM (MetaMask, WalletConnect, Binance, etc.) and Solana (Phantom, Solflare).
 
+> **CRITICAL**: You MUST install the underlying wallet libraries. The `@orderly.network/wallet-connector` package is just a wrapperâ€”it requires the actual wallet packages to function.
+
 ```bash
-npm install @orderly.network/wallet-connector \
-            @web3-onboard/injected-wallets \
-            @web3-onboard/walletconnect
+# Main connector package
+npm install @orderly.network/wallet-connector
+
+# REQUIRED: EVM wallet packages (for MetaMask, Coinbase, WalletConnect, etc.)
+npm install @web3-onboard/injected-wallets @web3-onboard/walletconnect
+
+# REQUIRED: Solana wallet packages (for Phantom, Solflare, etc.)
+npm install @solana/wallet-adapter-base @solana/wallet-adapter-wallets
 ```
 
 **Option B: Privy Connector**
@@ -153,12 +169,16 @@ npm install @orderly.network/react-app \
             @orderly.network/trading \
             @orderly.network/portfolio \
             @orderly.network/markets \
-            @orderly.network/vaults \
             @orderly.network/affiliate \
             @orderly.network/trading-leaderboard \
+            @orderly.network/trading-rewards \
             @orderly.network/wallet-connector \
             @orderly.network/i18n \
-            @orderly.network/ui
+            @orderly.network/ui \
+            @orderly.network/ui-scaffold \
+            @orderly.network/types \
+            react-router \
+            vite-plugin-node-polyfills
 ```
 
 ### Custom UI with Scaffold Layout
@@ -275,10 +295,10 @@ All `@orderly.network/*` packages should use the same version to ensure compatib
 ```json
 {
   "dependencies": {
-    "@orderly.network/react-app": "^2.8.0",
-    "@orderly.network/trading": "^2.8.0",
-    "@orderly.network/hooks": "^2.8.0",
-    "@orderly.network/ui": "^2.8.0"
+    "@orderly.network/react-app": "^2.9.1",
+    "@orderly.network/trading": "^2.9.1",
+    "@orderly.network/hooks": "^2.9.1",
+    "@orderly.network/ui": "^2.9.1"
   }
 }
 ```

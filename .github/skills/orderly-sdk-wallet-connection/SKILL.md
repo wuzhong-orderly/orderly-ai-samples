@@ -13,22 +13,27 @@ The SDK provides a unified wallet connection layer that abstracts the difference
 
 ## Wallet Connector Package
 
+> **CRITICAL**: The `@orderly.network/wallet-connector` package is a wrapper. You MUST also install the underlying wallet libraries for it to work.
+
 ```bash
+# Main connector package
 npm install @orderly.network/wallet-connector
+
+# REQUIRED: EVM wallet packages (for MetaMask, Coinbase, WalletConnect, etc.)
+npm install @web3-onboard/injected-wallets @web3-onboard/walletconnect
+
+# REQUIRED: Solana wallet packages (for Phantom, Solflare, etc.)
+npm install @solana/wallet-adapter-base @solana/wallet-adapter-wallets
 ```
 
-### Peer Dependencies
+### Required Dependencies Summary
 
-```json
-{
-  "@solana/wallet-adapter-base": "^0.9.x",
-  "@solana/wallet-adapter-react": "^0.15.x",
-  "@solana/wallet-adapter-react-ui": "^0.9.x",
-  "@solana/wallet-adapter-wallets": "^0.19.x",
-  "@web3-onboard/react": "^2.x",
-  "@web3-onboard/injected-wallets": "^2.x"
-}
-```
+| Package | Purpose | Required For |
+|---------|---------|--------------|
+| `@web3-onboard/injected-wallets` | MetaMask, Coinbase Wallet, Rabby, etc. | EVM wallet connection |
+| `@web3-onboard/walletconnect` | WalletConnect protocol | Mobile & multi-platform wallets |
+| `@solana/wallet-adapter-base` | Solana wallet adapter base | All Solana wallets |
+| `@solana/wallet-adapter-wallets` | Phantom, Solflare, Ledger adapters | Solana wallet connection |
 
 ---
 

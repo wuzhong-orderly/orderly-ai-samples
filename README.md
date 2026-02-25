@@ -12,13 +12,16 @@ It showcases how custom agent skills—defined in the `.github/skills` directory
     - `orderly-sdk-*`: Skills for using Orderly Network SDK components directly.
 - **`market-data-sample/`**: A sample project displaying public market data (prices, volumes, 24h changes).
 - **`account-info-sample/`**: A sample project for viewing authenticated account data (assets, positions, PnL).
-- **`dex-sample/`**: A fully scaffolded DEX generated using the "Create DEX" skill (template-based).
-- **`sdk-dex-sample/`**: A DEX built using SDK components directly (not template-based). Features:
-  - Full trading interface with `@orderly.network/trading`
-  - Wallet connection (EVM & Solana)
-  - TradingView charting support
-  - Symbol switching with URL routing
+- **`orderly-dex-sdk/`**: ✨ **NEW** - A complete DEX built from scratch using the Orderly SDK (not template-based). Features:
+  - Professional 3-panel trading interface
+  - Live market data with symbol search
+  - Real-time order book with bid/ask depth
+  - Recent trades display
+  - EVM & Solana wallet integration
+  - Account management and position tracking
   - Dark theme with customizable CSS variables
+  - No framework dependencies - pure HTML/CSS/JavaScript
+  - Full documentation and developer guide
 
 ## 🤖 AI Agent Configuration
 

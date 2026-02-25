@@ -20,10 +20,11 @@ Pre-built, full-featured page components for building a complete DEX. These comp
 | `OrdersModule.OrdersPage` | `@orderly.network/portfolio` | Orders list (open, pending, filled) |
 | `AssetsModule.AssetsPage` | `@orderly.network/portfolio` | Asset balances, deposit/withdraw |
 | `HistoryModule.HistoryPage` | `@orderly.network/portfolio` | Trade history, funding, settlements |
+| `SettingModule.SettingPage` | `@orderly.network/portfolio` | User settings and preferences |
 | `MarketsHomePage` | `@orderly.network/markets` | Markets listing with stats |
-| `LeaderboardPage` | `@orderly.network/trading-leaderboard` | Trading competition leaderboard |
-| `TradingRewardsPage` | `@orderly.network/trading-rewards` | Rewards program page |
-| `Dashboard` | `@orderly.network/affiliate` | Affiliate/referral dashboard |
+| `LeaderboardWidget` | `@orderly.network/trading-leaderboard` | Trading competition leaderboard |
+| `TradingRewardsLayoutWidget` | `@orderly.network/trading-rewards` | Rewards program layout |
+| `AffiliatePage` | `@orderly.network/affiliate` | Affiliate/referral dashboard |
 
 ---
 
@@ -300,37 +301,83 @@ function HistoryRoute() {
 **Tabs included:**
 - Trade history
 - Funding payments
-- Settlements
+- Distribution history
+- Deposit/withdrawal history
 
-### Complete Portfolio Layout
+### SettingModule.SettingPage
+
+User settings and preferences page.
 
 ```tsx
-import { Outlet, NavLink } from "react-router-dom";
+import { SettingModule } from "@orderly.network/portfolio";
+
+function SettingsRoute() {
+  return <SettingModule.SettingPage />;
+}
+```
+
+**Features:**
+- Account settings
+- Preference settings
+- Mobile-optimized responsive design
+
+### Complete Portfolio Layout (with PortfolioLayoutWidget)
+
+> **IMPORTANT**: Use `PortfolioLayoutWidget` from `@orderly.network/portfolio` instead of creating custom navigation.
+
+```tsx
+// src/components/layout/portfolioLayout.tsx
+import { useMemo } from "react";
+import { Outlet, useLocation } from "react-router";
+import {
+  PortfolioLayoutWidget,
+  PortfolioLeftSidebarPath,
+} from "@orderly.network/portfolio";
+import { useOrderlyConfig } from "../../hooks/useOrderlyConfig";
+import { useNav } from "../../hooks/useNav";
+
+export const PortfolioLayout = () => {
+  const location = useLocation();
+  const config = useOrderlyConfig();
+  const { onRouteChange } = useNav();
+
+  // Map your paths to SDK sidebar paths
+  const currentPath = useMemo(() => {
+    if (location.pathname.endsWith("/fee")) return PortfolioLeftSidebarPath.FeeTier;
+    if (location.pathname.endsWith("/api-key")) return PortfolioLeftSidebarPath.ApiKey;
+    return location.pathname;
+  }, [location.pathname]);
+
+  return (
+    <PortfolioLayoutWidget
+      footerProps={config.scaffold.footerProps}
+      mainNavProps={{
+        ...config.scaffold.mainNavProps,
+        initialMenu: "/portfolio",
+      }}
+      routerAdapter={{ onRouteChange }}
+      leftSideProps={{ current: currentPath }}
+    >
+      <Outlet />
+    </PortfolioLayoutWidget>
+  );
+};
+```
+
+### Router Configuration
+
+```tsx
 import {
   OverviewModule,
-  PositionsModule,
+  PositionManagerModule,
   OrdersModule,
   AssetsModule,
   HistoryModule,
+  SettingModule,
+  FeeTierModule,
+  ApiKeyModule,
 } from "@orderly.network/portfolio";
-
-// Portfolio layout with navigation
-function PortfolioLayout() {
-  return (
-    <div className="portfolio-container">
-      <nav className="portfolio-nav">
-        <NavLink to="/portfolio">Overview</NavLink>
-        <NavLink to="/portfolio/positions">Positions</NavLink>
-        <NavLink to="/portfolio/orders">Orders</NavLink>
-        <NavLink to="/portfolio/assets">Assets</NavLink>
-        <NavLink to="/portfolio/history">History</NavLink>
-      </nav>
-      <main className="portfolio-content">
-        <Outlet />
-      </main>
-    </div>
-  );
-}
+import { PortfolioLayout } from "./components/layout/portfolioLayout";
 
 // Router configuration
 const portfolioRoutes = [
@@ -339,9 +386,12 @@ const portfolioRoutes = [
     element: <PortfolioLayout />,
     children: [
       { index: true, element: <OverviewModule.OverviewPage /> },
-      { path: "positions", element: <PositionsModule.PositionsPage /> },
+      { path: "positions", element: <PositionManagerModule.PositionsPage /> },
       { path: "orders", element: <OrdersModule.OrdersPage /> },
       { path: "assets", element: <AssetsModule.AssetsPage /> },
+      { path: "fee", element: <FeeTierModule.FeeTierPage /> },
+      { path: "api-key", element: <ApiKeyModule.ApiKeyPage /> },
+      { path: "setting", element: <SettingModule.SettingPage /> },
       { path: "history", element: <HistoryModule.HistoryPage /> },
     ],
   },

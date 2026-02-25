@@ -1176,7 +1176,7 @@ try {
 
 ## Version Compatibility
 
-- **Hooks Package**: v2.8.x
+- **Hooks Package**: v2.9.x
 - **React**: ^18.0.0
 - **Node.js**: >= 16.x
 - **TypeScript**: >= 5.0.0
